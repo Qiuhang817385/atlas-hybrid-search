@@ -1,3 +1,5 @@
+import { Analytics } from "@vercel/analytics/next"
+
 import axios from 'axios';
 import Header from './head';
 import RSF from './rsf';
@@ -83,6 +85,7 @@ const Home = () => {
 
   return (
     <>
+      <Analytics />
       <Header />
       <AppBanner heading="Atlas Hybrid Search Tester"></AppBanner>
       <div style={{ display: "grid", gridTemplateColumns: "90% 120px", gap: "10px", alignItems: "start" }}>
