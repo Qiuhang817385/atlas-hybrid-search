@@ -1,13 +1,13 @@
-import Home from '../components/home';
-import { AppProvider } from '../context/AppContext';
+import Home from '../../components/home';
+import { AppProvider } from '../../context/AppContext';
 import { ToastProvider } from '@leafygreen-ui/toast';
 import { NextIntlClientProvider } from 'next-intl';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 
 // 导入翻译文件
-import enMessages from '../messages/en.json';
-import zhMessages from '../messages/zh.json';
+import enMessages from '../../messages/en.json';
+import zhMessages from '../../messages/zh.json';
 
 const messages = {
   en: enMessages,

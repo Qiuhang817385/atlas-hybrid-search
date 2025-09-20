@@ -19,9 +19,11 @@ import LoadingIndicator from './LoadingIndicator';
 import Modal from '@leafygreen-ui/modal';
 import Code from '@leafygreen-ui/code';
 import ExpandableCard from '@leafygreen-ui/expandable-card';
+import { useTranslations } from 'next-intl';
 
 const Home = () => {
   const { pushToast } = useToast();
+  const t = useTranslations();
   const [query, setQuery] = useState("");
   const [queryVector, setQueryVector] = useState(null);
   const [selectedTab, setSelectedTab] = useState(0);
@@ -44,7 +46,7 @@ const Home = () => {
         .then(resp => {
           if (resp) {
             console.log("Got cached query vector!");
-            pushToast({ timeout: 10000, variant: "note", title: "Cache Hit", description: `Used cached embedding for ${query}` });
+            pushToast({ timeout: 10000, variant: "note", title: t('toasts.cacheHit'), description: t('toasts.usedCachedEmbedding', { query }) });
             setQueryVector(resp);
             setLoading(false);
           } else {
@@ -56,13 +58,13 @@ const Home = () => {
               })
               .catch(error => {
                 console.log(error);
-                pushToast({ timeout: 10000, variant: "warning", title: "API Failure", description: `Failed to encode query using embedding model. ${error}` });
+                pushToast({ timeout: 10000, variant: "warning", title: t('toasts.apiFailure'), description: t('toasts.failedToEncode', { error }) });
               });
           }
         })
         .catch(error => {
           console.log(error);
-          pushToast({ timeout: 10000, variant: "warning", title: "API Failure", description: `Failed to access query cache. ${error}` });
+          pushToast({ timeout: 10000, variant: "warning", title: t('toasts.apiFailure'), description: t('toasts.failedToAccessCache', { error }) });
         });
     }
   }
@@ -74,7 +76,7 @@ const Home = () => {
       .then(resp => {
         if (resp) {
           console.log("Got cached query vector!");
-          pushToast({ timeout: 10000, variant: "note", title: "Cache Hit", description: `Used cached embedding for ${event.target.value}` });
+          pushToast({ timeout: 10000, variant: "note", title: t('toasts.cacheHit'), description: t('toasts.usedCachedEmbedding', { query: event.target.value }) });
           setQueryVector(resp);
         }
       })
@@ -87,54 +89,54 @@ const Home = () => {
     <>
       <Analytics />
       <Header />
-      <AppBanner heading="Atlas Hybrid Search Tester"></AppBanner>
+      <AppBanner heading={t('app.title')}></AppBanner>
       <div style={{ display: "grid", gridTemplateColumns: "90% 120px", gap: "10px", alignItems: "start" }}>
-        <div><SearchInput value={query} onChange={handleQueryChange} onKeyDown={(e) => handleKeyPress(e)} aria-label="some label" style={{ marginBottom: "20px" }}></SearchInput></div>
-        <div style={{ maxWidth: "120px" }}><Button onClick={() => handleSearch()} variant="primary">Vector Search</Button></div>
+        <div><SearchInput value={query} onChange={handleQueryChange} onKeyDown={(e) => handleKeyPress(e)} aria-label={t('app.searchPlaceholder')} placeholder={t('app.searchPlaceholder')} style={{ marginBottom: "20px" }}></SearchInput></div>
+        <div style={{ maxWidth: "120px" }}><Button onClick={() => handleSearch()} variant="primary">{t('app.vectorSearch')}</Button></div>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "120px 120px", gap: "10px", alignItems: "start" }}>
-        <div style={{ maxWidth: "120px" }}><Button onClick={() => setOpen("indexes")}>Show Indexes</Button></div>
-        <div style={{ maxWidth: "120px" }}><Button onClick={() => setOpen("sample")}>Sample Doc</Button></div>
+        <div style={{ maxWidth: "120px" }}><Button onClick={() => setOpen("indexes")}>{t('app.showIndexes')}</Button></div>
+        <div style={{ maxWidth: "120px" }}><Button onClick={() => setOpen("sample")}>{t('app.sampleDoc')}</Button></div>
       </div>
       {loading ? <LoadingIndicator /> : <></>}
       <Tabs style={{ marginTop: "15px" }} setSelected={setSelectedTab} selected={selectedTab}>
-        <Tab name="About">
+        <Tab name={t('tabs.about')}>
           <div style={{ margin: "100px", marginTop: "50px" }}>
-            <h1>About this application</h1>
-            <p>This app helps you to test different strategies for combining lexical and vector search. You can find source code here: <a href="https://github.com/JohnGUnderwood/atlas-hybrid-search">https://github.com/JohnGUnderwood/atlas-hybrid-search</a></p>
-            <h2>Hybrid strategies</h2>
-            <p>There are four strategies in the app at the moment; Relative Score Fusion, Reciprocal Rank Fusion, Semantic Boosting and Rank Fusion</p>
-            <h3>Relative Score Fusion (RSF)</h3>
-            <p>RSF combines the scores from lexical and vector search using a weighted sum. This implementation of RSF uses a sigmoid function, 1/(1+exp(-x)), to normalize lexical and vector scores before combining them.</p>
-            <h3>Reciprocal Rank Fusion (RRF)</h3>
-            <p>RRF combines lexical and vectors search using a weighted sum of their reciprocal rank. The reciprocal ranks of a result is 1/rank in the result list.</p>
-            <h3>Semantic Boosting</h3>
-            <p>In this strategy we use vector search to retrieve a given number of results. We then perform lexical search but boosting the unique ids of the documents returned by the vector search. This done by matching on the _id field and using the vector score as the boost value. The vector score is additive to the overall text score of the document and can be weighted by the user.</p>
-            <h3>Rerank Fusion</h3>
-            <p>Rerank Fusion combines lexical and vector search using a reranker. We let the reranker decide the best results, ignoring all previous scoring.</p>
-            <h2>Reranking</h2>
-            <h3>Rerank Results</h3>
-            <p>When the application is run with a reranking model you can select to rerank the returned results from any of the retrieval strategies. This will send the result documents and query to the configued reranking model, which returns a new resorted result set.</p>
-            <h2>How to use</h2>
-            <p>Use the Fulltext and Vector search tabs to test your query using just one or other approaches. Then use the other tabs to see how your query performs with different strategies. Have fun!</p>
+            <h1>{t('about.title')}</h1>
+            <p>{t('about.description')} <a href={t('about.sourceCodeUrl')}>{t('about.sourceCodeUrl')}</a></p>
+            <h2>{t('about.hybridStrategies')}</h2>
+            <p>{t('about.strategiesDescription')}</p>
+            <h3>{t('about.rsf.title')}</h3>
+            <p>{t('about.rsf.description')}</p>
+            <h3>{t('about.rrf.title')}</h3>
+            <p>{t('about.rrf.description')}</p>
+            <h3>{t('about.semanticBoosting.title')}</h3>
+            <p>{t('about.semanticBoosting.description')}</p>
+            <h3>{t('about.rerankFusion.title')}</h3>
+            <p>{t('about.rerankFusion.description')}</p>
+            <h2>{t('about.reranking.title')}</h2>
+            <h3>{t('about.reranking.rerankResults')}</h3>
+            <p>{t('about.reranking.description')}</p>
+            <h2>{t('about.howToUse.title')}</h2>
+            <p>{t('about.howToUse.description')}</p>
           </div>
         </Tab>
-        <Tab name="Fulltext Search">
+        <Tab name={t('tabs.fulltextSearch')}>
           <FTS query={query} />
         </Tab>
-        <Tab name="Vector Search">
+        <Tab name={t('tabs.vectorSearch')}>
           <VS query={query} queryVector={queryVector} />
         </Tab>
-        <Tab name="Relative Score Fusion">
+        <Tab name={t('tabs.relativeScoreFusion')}>
           <RSF query={query} queryVector={queryVector} />
         </Tab>
-        <Tab name="Reciprocal Rank Fusion">
+        <Tab name={t('tabs.reciprocalRankFusion')}>
           <RRF query={query} queryVector={queryVector} />
         </Tab>
-        <Tab name="Semantic Boosting">
+        <Tab name={t('tabs.semanticBoosting')}>
           <SemanticBoosting query={query} queryVector={queryVector} />
         </Tab>
-        <Tab name="Rerank Fusion">
+        <Tab name={t('tabs.rerankFusion')}>
           <RerankFusion query={query} queryVector={queryVector} />
         </Tab>
       </Tabs>
@@ -142,7 +144,7 @@ const Home = () => {
         {open == "indexes" ?
           <>
             <ExpandableCard
-              title="Atlas Search"
+              title={t('modals.atlasSearch')}
               darkMode={false}
             >
               <Code language={'javascript'}>
@@ -151,7 +153,7 @@ const Home = () => {
             </ExpandableCard>
             <br />
             <ExpandableCard
-              title="Atlas Vector Search"
+              title={t('modals.atlasVectorSearch')}
               darkMode={false}
             >
               <Code language={'javascript'}>

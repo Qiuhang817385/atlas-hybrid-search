@@ -1,13 +1,13 @@
-import Home from '../components/home';
-import { AppProvider } from '../context/AppContext';
+import Home from '../../components/home';
+import { AppProvider } from '../../context/AppContext';
 import { ToastProvider } from '@leafygreen-ui/toast';
 import { NextIntlClientProvider } from 'next-intl';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 
 // 导入翻译文件
-import enMessages from '../messages/en.json';
-import zhMessages from '../messages/zh.json';
+import enMessages from '../../messages/en.json';
+import zhMessages from '../../messages/zh.json';
 
 const messages = {
   en: enMessages,
@@ -18,11 +18,11 @@ export default function App () {
 
 
   const router = useRouter();
-  const [locale, setLocale] = useState('en');
+  const [locale, setLocale] = useState('zh');
 
   useEffect(() => {
     // 从 URL 路径或 localStorage 获取语言设置
-    const pathLocale = router.locale || 'en';
+    const pathLocale = router.locale || 'zh';
     const savedLocale = localStorage.getItem('preferred-language') || pathLocale;
     setLocale(savedLocale);
   }, [router.locale]);
