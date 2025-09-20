@@ -1,0 +1,78 @@
+{
+  "i18n-ally.localesPaths": [
+    "E:/AllProject/ob-cloud/aaa/atlas-hybrid-search/messages"
+  ],
+  "i18n-ally.keystyle": "nested",
+
+  // 光标配置
+  "editor.cursorStyle": "line",
+  "editor.cursorWidth": 2, // 1-10 像素，推荐 2-3
+  "editor.cursorBlinking": "smooth",
+  "editor.cursorSmoothCaretAnimation": "on",
+
+  // 多光标配置
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.selectionClipboard": false,
+
+  // 选择配置
+  "editor.selectOnLineNumbers": true,
+  "editor.selectionHighlight": true,
+  "editor.occurrencesHighlight": "singleFile",
+
+  // 光标移动配置
+  "editor.cursorSurroundingLines": 5,
+  "editor.cursorSurroundingLinesStyle": "default",
+
+  // 自动保存和格式化
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": false,
+
+  // 代码提示
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": true
+  },
+  "editor.suggestOnTriggerCharacters": true,
+  "editor.acceptSuggestionOnCommitCharacter": true,
+  "editor.acceptSuggestionOnEnter": "on",
+
+  // 括号匹配
+  "editor.matchBrackets": "always",
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": true,
+
+  // 缩进配置
+  "editor.detectIndentation": true,
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+
+  // 行号配置
+  "editor.lineNumbers": "on",
+  "editor.glyphMargin": true,
+  "editor.folding": true,
+
+  // 滚动配置
+  "editor.smoothScrolling": true,
+  "editor.cursorSurroundingLines": 5,
+
+  // 字体配置
+  "editor.fontFamily": "'Fira Code', 'Cascadia Code', 'JetBrains Mono', Consolas, 'Courier New', monospace",
+  "editor.fontLigatures": true,
+  "editor.fontSize": 14,
+  "editor.lineHeight": 1.5
+
+  // // 主题和颜色
+  // "workbench.colorTheme": "Default Dark+",
+  // "editor.tokenColorCustomizations": {
+  //   "textMateRules": [
+  //     {
+  //       "scope": "comment",
+  //       "settings": {
+  //         "fontStyle": "italic"
+  //       }
+  //     }
+  //   ]
+  // }
+}

@@ -1,0 +1,81 @@
+{
+  "app": {
+    "title": "Atlas 混合搜索测试器",
+    "searchPlaceholder": "请输入您的搜索查询...",
+    "vectorSearch": "向量搜索",
+    "showIndexes": "显示索引",
+    "sampleDoc": "示例文档"
+  },
+  "tabs": {
+    "about": "关于",
+    "fulltextSearch": "全文搜索",
+    "vectorSearch": "向量搜索",
+    "relativeScoreFusion": "相对分数融合",
+    "reciprocalRankFusion": "倒数排名融合",
+    "semanticBoosting": "语义增强",
+    "rerankFusion": "重排序融合"
+  },
+  "about": {
+    "title": "关于此应用程序",
+    "description": "此应用帮助您测试结合词汇搜索和向量搜索的不同策略。您可以在此处找到源代码：",
+    "sourceCodeUrl": "https://github.com/JohnGUnderwood/atlas-hybrid-search",
+    "hybridStrategies": "混合策略",
+    "strategiesDescription": "目前应用中有四种策略：相对分数融合、倒数排名融合、语义增强和排名融合",
+    "rsf": {
+      "title": "相对分数融合 (RSF)",
+      "description": "RSF 使用加权和结合词汇搜索和向量搜索的分数。此 RSF 实现使用 sigmoid 函数 1/(1+exp(-x)) 在结合之前标准化词汇和向量分数。"
+    },
+    "rrf": {
+      "title": "倒数排名融合 (RRF)",
+      "description": "RRF 使用其倒数排名的加权和结合词汇和向量搜索。结果的倒数排名是结果列表中 1/排名。"
+    },
+    "semanticBoosting": {
+      "title": "语义增强",
+      "description": "在此策略中，我们使用向量搜索检索给定数量的结果。然后我们执行词汇搜索，但增强向量搜索返回的文档的唯一 ID。这是通过匹配 _id 字段并使用向量分数作为增强值来完成的。向量分数是文档整体文本分数的加法，可以由用户加权。"
+    },
+    "rerankFusion": {
+      "title": "重排序融合",
+      "description": "重排序融合使用重排序器结合词汇和向量搜索。我们让重排序器决定最佳结果，忽略所有先前的评分。"
+    },
+    "reranking": {
+      "title": "重排序",
+      "rerankResults": "重排序结果",
+      "description": "当应用程序使用重排序模型运行时，您可以选择重排序任何检索策略返回的结果。这将把结果文档和查询发送到配置的重排序模型，该模型返回新的重新排序结果集。"
+    },
+    "howToUse": {
+      "title": "如何使用",
+      "description": "使用全文搜索和向量搜索标签页测试您的查询，使用一种或另一种方法。然后使用其他标签页查看您的查询在不同策略下的表现。祝您使用愉快！"
+    }
+  },
+  "search": {
+    "queryTime": "查询耗时 {time}ms",
+    "showQuery": "显示查询",
+    "useReranker": "使用重排序器",
+    "noResults": "未找到与您的查询匹配的结果",
+    "score": "分数",
+    "semanticallyBoosted": "语义增强结果",
+    "reranked": "已重排序 (分数: {score})"
+  },
+  "modals": {
+    "atlasSearch": "Atlas 搜索",
+    "atlasVectorSearch": "Atlas 向量搜索",
+    "mongodbAggregationPipeline": "MongoDB 聚合管道"
+  },
+  "toasts": {
+    "cacheHit": "缓存命中",
+    "usedCachedEmbedding": "使用了 {query} 的缓存嵌入",
+    "apiFailure": "API 失败",
+    "failedToEncode": "使用嵌入模型编码查询失败。{error}",
+    "failedToAccessCache": "访问查询缓存失败。{error}",
+    "rerankingFailed": "重排序失败。{error}"
+  },
+  "embeddings": {
+    "provider": "嵌入: {provider} - {model}",
+    "reranking": "重排序: {provider} - {model}"
+  },
+  "number-of-results-to-return-0": "返回的结果数",
+  "how-many-candidates-to-retrieve-from-the-vector-search": "从矢量搜索中取回多少候选人",
+  "no-results-select-vector-search-to-run-a-vector-query": "没有结果。\n选择“向量搜索”以运行向量查询。",
+  "search-query-failed-error": "搜索查询失败。 \n{0}",
+  "vector-search-params": "向量搜索参数"
+}
